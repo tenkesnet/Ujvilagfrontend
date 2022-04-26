@@ -1,0 +1,46 @@
+<h2>Eszközök listája</h2>
+<mat-form-field appearance="standard">
+  <mat-label>Keresés</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Keresés" #input>
+</mat-form-field>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> Product Id </th>
+      <td mat-cell *matCellDef="let element" (click)="getProduct(element.productid)"> {{element.productid}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Eszköz neve </th>
+      <td mat-cell *matCellDef="let element" (click)="getProduct(element.productid)"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="sku">
+      <th mat-header-cell *matHeaderCellDef> SKU </th>
+      <td mat-cell *matCellDef="let element" (click)="getProduct(element.productid)"> {{element.sku}} </td>
+    </ng-container>
+
+    <!-- purchasedPrice Column -->
+    <ng-container matColumnDef="purchasePrice">
+      <th mat-header-cell *matHeaderCellDef> Ár </th>
+      <td mat-cell *matCellDef="let element" (click)="getProduct(element.productid)"> {{element.purchasePrice}} </td>
+    </ng-container>
+
+    <!-- quantity Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef> Mennyiség </th>
+      <td mat-cell *matCellDef="let element" (click)="getProduct(element.productid)"> {{element.quantity}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

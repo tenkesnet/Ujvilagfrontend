@@ -1,0 +1,24 @@
+<h2>Normal form</h2>
+<form [formGroup]="form" fxLayout="column" (ngSubmit)="submitForm()">
+
+  <hr>
+
+  <mat-form-field>
+    <mat-label>Eszköznév</mat-label>
+    <input matInput formControlName="name" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Állapot (%)</mat-label>
+    <input matInput formControlName="productCondition">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Felhasználó</mat-label>
+    <mat-select formControlName="employeeId" [(value)]="employee">
+      <mat-option *ngFor="let epmloyee of product.employees" value="{{epmloyee.id}}">{{epmloyee.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" [disabled]="form.invalid">Küldés</button>
+</form>
