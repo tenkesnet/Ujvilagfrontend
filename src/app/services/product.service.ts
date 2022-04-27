@@ -29,9 +29,9 @@ export class ProductService {
   searchProducts(name: string): Observable<Array<Product>> {
     return this.http.get<Array<Product>>(this.baseUrl + "/searchProducts/name/" + name);
   }
-  updateProduct(product: Product): void {
+  updateProduct(product: Product) {
     let url = this.baseUrl + '/updateProduct';
-    console.log(product);
+    console.log("updateproduct: ", product, url);
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -39,6 +39,6 @@ export class ProductService {
       })
     };
 
-    this.http.post(url, JSON.stringify(product), options);
+    return this.http.post(url, JSON.stringify(product), options);
   }
 }

@@ -2,9 +2,11 @@ import { Employee } from './../model/employee.model';
 import { EmployeeService } from './../services/employee.service';
 import { Product } from './../model/product.model';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { MatSelectChange } from '@angular/material/select';
+import { PathLocationStrategy } from '@angular/common';
 
 
 @Component({
@@ -17,7 +19,8 @@ export class ProductEditorComponent implements OnInit {
   form: FormGroup;
   id: number;
   product: Product;
-  employee: Employee;
+  //employee: Employee;
+  employeeName: string;
 
   constructor(
     private router: Router,
@@ -31,6 +34,7 @@ export class ProductEditorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.employeeName = "";
     this.product = new Product();
     this.form = this.fb.group({
       productid: '',
@@ -41,9 +45,9 @@ export class ProductEditorComponent implements OnInit {
       productNumber: '',
       purchasePrice: 0,
       purchaseDate: '',
-      productCondition: 100,
+      productCondition: 0,
       employeeName: '',
-      employeeId: 0
+      employeeId: 1
     });
     this.productService.getProductsByIdInStock(this.route.snapshot.params['pid'], this.route.snapshot.params['sid']).subscribe(data => {
       this.product = data;
@@ -57,13 +61,21 @@ export class ProductEditorComponent implements OnInit {
     });
 
 
-
-
-    this.form.controls['employeeId'].valueChanges.subscribe(data => console.log(data));
+    // this.form.valueChanges.subscribe(data => console.log(data));
   }
 
   submitForm() {
-    this.productService.updateProduct(this.product);
+    this.product = this.form.value;
+    this.product.employeeName = this.employeeName != "" ? this.employeeName : this.product.employeeName;
+    console.log("Submit:", this.product);
+    this.productService.updateProduct(this.product).subscribe(console.log);
 
   }
+
+  selectedValue(event: MatSelectChange) {
+    this.employeeName = event.source.triggerValue;
+    this.product.employeeId = event.source.value;
+
+  }
+
 }

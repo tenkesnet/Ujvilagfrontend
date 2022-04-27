@@ -1,8 +1,6 @@
-<h2>Normal form</h2>
+<h2>Eszköz szerkesztés</h2>
+
 <form [formGroup]="form" fxLayout="column" (ngSubmit)="submitForm()">
-
-  <hr>
-
   <mat-form-field>
     <mat-label>Eszköznév</mat-label>
     <input matInput formControlName="name" required>
@@ -14,11 +12,17 @@
   </mat-form-field>
 
   <mat-form-field>
+    <mat-label>Nyelv (ISO639-1) pl. hu,de,en,es ...</mat-label>
+    <input matInput formControlName="language">
+  </mat-form-field>
+
+  <mat-form-field>
     <mat-label>Felhasználó</mat-label>
-    <mat-select formControlName="employeeId" [(value)]="employee">
-      <mat-option *ngFor="let epmloyee of product.employees" value="{{epmloyee.id}}">{{epmloyee.name}}</mat-option>
+    <mat-select formControlName="employeeId" (selectionChange)="selectedValue($event)">
+      <mat-option *ngFor=" let epmloyee of product.employees" value="{{epmloyee.id}}">{{epmloyee.name}}</mat-option>
     </mat-select>
   </mat-form-field>
+  <span>Eredeti felhasználó: {{product.employeeName}}</span>
 
   <button mat-raised-button color="primary" [disabled]="form.invalid">Küldés</button>
 </form>

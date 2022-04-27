@@ -14,7 +14,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
 
   id: number;
   products: Product[];
-  displayedColumns: string[] = ['id', 'name', 'sku', 'purchasePrice', 'quantity', 'employee', 'edit'];
+  displayedColumns: string[] = ['id', 'name', 'sku', 'purchasePrice', 'quantity', 'employee', 'productCondition', 'edit'];
   dataSource = new MatTableDataSource<Product>();
   pageSizeOptions: number[] = [5, 10, 25, 100];
   @ViewChild('paginator') paginator: MatPaginator;
